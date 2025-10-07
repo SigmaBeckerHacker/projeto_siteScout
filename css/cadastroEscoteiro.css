@@ -1,0 +1,120 @@
+body {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right,
+        #b4002f 0 5%,     
+        #93328e 5% 10%,   
+        #009fe3 10% 90%,  
+        #93328e 90% 95%,  
+        #ffd200 95% 100%  
+    );
+    font-family: "Poppins", sans-serif;
+}
+
+
+.container-admin-banner {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.logo-admin {
+    width: 200px;
+    margin-bottom: 15px;
+}
+
+.container-admin-banner h1 {
+    font-size: 1.8rem;
+    color: #001f3f;
+    margin: 10px 0;
+}
+
+.ornamento {
+    width: 120px;
+    opacity: 0.8;
+}
+
+
+.container-form {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    padding: 40px;
+    width: 400px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+
+form label {
+    display: block;
+    margin-bottom: 6px;
+    color: #001f3f;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+form input[type="text"],
+form input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    background-color: #e6f2fa;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    outline: none;
+    transition: 0.3s;
+}
+
+form input[type="text"]:focus,
+form input[type="number"]:focus {
+    background-color: #d4ecff;
+    box-shadow: 0 0 0 2px #009fe3;
+}
+
+
+.container-radio {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    margin-bottom: 20px;
+}
+
+.container-radio div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.container-radio label {
+    font-weight: 500;
+    color: #001f3f;
+}
+
+
+.botao-cadastrar {
+    display: block;
+    width: 100%;
+    background-color: #009fe3;
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    padding: 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.botao-cadastrar:hover {
+    background-color: #007bbd;
+}
+
+
+@media (max-width: 480px) {
+    .container-form {
+        width: 90%;
+        padding: 25px;
+    }
+}
