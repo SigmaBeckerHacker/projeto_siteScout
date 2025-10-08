@@ -5,7 +5,6 @@
         private string $nome;
         private string $ramo;
 
-        //MÃ©todo construtor
         public function __construct(int $registro, string $nome, string $ramo){
             $this->registro = $registro;
             $this->nome = $nome;
