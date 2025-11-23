@@ -18,6 +18,33 @@ USE `db_escoteiro`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `tbdistintivo`
+--
+
+DROP TABLE IF EXISTS `tbdistintivo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tbdistintivo` (
+  `id_distintivo` int NOT NULL AUTO_INCREMENT,
+  `nome_distintivo` varchar(50) DEFAULT NULL,
+  `quantidade` int DEFAULT NULL,
+  `categoria_distintivo` varchar(50) DEFAULT NULL,
+  `imagem` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id_distintivo`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbdistintivo`
+--
+
+LOCK TABLES `tbdistintivo` WRITE;
+/*!40000 ALTER TABLE `tbdistintivo` DISABLE KEYS */;
+INSERT INTO `tbdistintivo` VALUES (1,'escoteiro da patria',4,'interesse','');
+/*!40000 ALTER TABLE `tbdistintivo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tbescoteiro`
 --
 
@@ -38,7 +65,33 @@ CREATE TABLE `tbescoteiro` (
 
 LOCK TABLES `tbescoteiro` WRITE;
 /*!40000 ALTER TABLE `tbescoteiro` DISABLE KEYS */;
+INSERT INTO `tbescoteiro` VALUES ('joao',13313,'escoteiro'),('joaquim',123414,'escoteiro');
 /*!40000 ALTER TABLE `tbescoteiro` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbrequisicao`
+--
+
+DROP TABLE IF EXISTS `tbrequisicao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tbrequisicao` (
+  `id_requisicao` int NOT NULL,
+  `distintivo` varchar(50) DEFAULT NULL,
+  `data_requisicao` date DEFAULT NULL,
+  `status_requisicao` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id_requisicao`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbrequisicao`
+--
+
+LOCK TABLES `tbrequisicao` WRITE;
+/*!40000 ALTER TABLE `tbrequisicao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbrequisicao` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -76,4 +129,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-06 17:39:39
+-- Dump completed on 2025-11-23 20:29:18
