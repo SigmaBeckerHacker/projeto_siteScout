@@ -25,7 +25,7 @@
         session_regenerate_id(true);
         $_SESSION['usuario'] = $email;
        
-        header('Location: mostrar-escoteiros.php');
+        header('Location: escoteiro/listar-escoteiros.php');
         exit;
    }
 

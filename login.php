@@ -28,7 +28,7 @@
                 </form>
             </div>
             <div class="conteudo">
-                <a href="mostrar-escoteiros.php" class="link-adm">Ir para o painel administrativo</a>
+                <a href="escoteiro/listar-escoteiros.php" class="link-adm">Ir para o painel administrativo</a>
             </div>
         </section>
         <?php else: ?>

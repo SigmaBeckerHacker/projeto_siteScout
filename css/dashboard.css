@@ -1,0 +1,91 @@
+/* ----- FUNDO GERAL ----- */
+body {
+    margin: 0;
+    padding: 0;
+    background: #009fe3;
+    font-family: "Segoe UI", sans-serif;
+    text-align: center;
+}
+
+/* ----- BARRAS LATERAIS ----- */
+.side {
+    position: fixed;
+    top: 0;
+    height: 100%;
+    width: 60px;
+    z-index: 1;
+}
+
+.left.red { left: 0; background: #B7002D; }
+.left.purple { left: 60px; background: #9A2CA4; }
+.right.purple { right: 60px; background: #9A2CA4; }
+.right.yellow { right: 0; background: #F4CA00; }
+
+/* ----- LOGO ----- */
+.logo-container {
+    margin-top: 40px;
+}
+
+.logo {
+    width: 180px;
+}
+
+/* ----- TÍTULO ----- */
+.titulo {
+    margin-top: 10px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #000;
+}
+
+/* ----- CARD ----- */
+.card {
+    background: #d9effb;
+    width: 65%;
+    max-width: 900px;
+    margin: 25px auto;
+    padding: 25px;
+    border-radius: 25px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+/* Linha superior do card */
+.linha-superior {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.bemvindo {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.icone {
+    font-size: 22px;
+}
+
+/* ----- BOTÕES ----- */
+.botoes-container {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.botao {
+    background: #4ab0e4;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    color: #003757;
+    text-decoration: none;
+    font-size: 18px;
+    transition: 0.2s;
+}
+
+.botao:hover {
+    background: #2b9cd6;
+    transform: translateY(-3px);
+}
