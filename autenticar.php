@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $email = trim($_POST['email'] ?? '');
-$registro = $_POST['registro'] ?? '';
+$registro = trim($_POST['registro'] ?? '');
 
 if ($email === '' || $registro === '') {
     header('Location: login.php?erro=campos');
@@ -20,16 +20,29 @@ if ($email === '' || $registro === '') {
 }
 
 $repo = new UsuarioRepositorio($pdo);
-$usuario = $repo->buscarPorEmail($email);
-
 
 if ($repo->autenticar($email, $registro)) {
-    session_regenerate_id(true); 
-    
+
+
+    $usuario = $repo->buscarPorEmail($email);
+
+    if ($usuario === null) {
+        header('Location: login.php?erro=credenciais');
+        exit;
+    }
+
+    session_regenerate_id(true);
+
+    $_SESSION['usuario'] = $email;
+
     $funcao = $usuario->getFuncao();
-    $_SESSION['usuario'] = $email; 
-    $_SESSION['permissoes'] = $funcao === 'Administrador' ? ['usuarios.listar',  'distintivos.listar', 'requisicoes.listar', 'escoteiros.listar'] : ['escoteiros.listar', 'requisicoes.listar'];
-    header('Location: dashboard.php'); 
+
+    $_SESSION['permissoes'] =
+        $funcao === 'Administrador'
+            ? ['usuarios.listar', 'distintivos.listar', 'requisicoes.listar', 'escoteiros.listar']
+            : ['escoteiros.listar', 'requisicoes.listar'];
+
+    header('Location: dashboard.php');
     exit;
 }
 

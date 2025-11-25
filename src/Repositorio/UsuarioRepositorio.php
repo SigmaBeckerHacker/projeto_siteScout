@@ -55,9 +55,10 @@ class UsuarioRepositorio {
 
     public function buscarPorEmail(string $email): ?Usuario
     {
-        $sql = "SELECT nome, registro, funcao, email FROM tbUsuario WHERE email = ?";
+        $sql = "SELECT nome, registro, funcao, email FROM tbUsuario WHERE TRIM(LOWER(email)) = LOWER(?)";
+
         $stmt = $this->pdo->prepare($sql);
-        $stmt->bindValue(1, $email);
+        $stmt->bindValue(1, trim(strtolower($email)));
         $stmt->execute();
 
         $dados = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -99,13 +100,14 @@ class UsuarioRepositorio {
         $stmt->execute([$registro]);
     }
 
-    public function autenticar(string $email, int $registro): bool
+    public function autenticar(string $email, $registro): bool
     {
-        $u = $this->buscarPorEmail($email);
-        if ($registro === $u->getRegistro()) {
-            return true;
-        } else {
+        $u = $this->buscarPorEmail(trim($email));
+
+        if ($u === null) {
             return false;
         }
+
+        return intval($registro) === intval($u->getRegistro());
     }
 }

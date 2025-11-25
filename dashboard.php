@@ -56,7 +56,7 @@ function pode(string $perm): bool
             <?php endif; ?>
 
             <?php if (pode('distintivos.listar')): ?>
-                <a class="botao" href="distintivos/listar-distintivos.php">Distintivos</a>
+                <a class="botao" href="distintivo/listar-distintivos.php">Distintivos</a>
             <?php endif; ?>
 
             <?php if (pode('escoteiros.listar')): ?>
