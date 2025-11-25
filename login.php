@@ -34,23 +34,23 @@
         <?php else: ?>
 
         <section class="container-admin-banner">
-            <img src="img/logo-escoteiros.png" class="logo-admin" alt="logo-granato">
+            <img src="img/logo-escoteiros.png" class="logo-admin" alt="logo-escoteiros">
             <h1>Login Escoteiro</h1>
         </section>
         <section class="container-form">
             <div class="form-wrapper">
                 <?php if($erro === 'credenciais'): ?>
-                <p class="mensagem-erro">Usuário e senha incorretos.</p>
+                <p class="mensagem-erro">Usuário e Registro incorretos.</p>
                 <?php elseif($erro === 'campos'): ?>
-                <p class="mensagem-erro">Preencha e-mail e senha.</p>
+                <p class="mensagem-erro">Preencha e-mail e registro.</p>
                 <?php endif; ?>
 
                 <form action="autenticar.php" method="POST">
                     <label for="email">E-mail</label>
                     <input type="email" id="e-mail" name="email" placeholder="Digite o seu e-mail">
 
-                    <label for="password">Senha</label>
-                    <input type="password" id="password" name="senha" placeholder="Digite a sua senha">
+                    <label for="password">Registro</label>
+                    <input type="password" id="password" name="registro" placeholder="Digite a seu registro">
 
                     <input type="submit" class="botao-cadastrar" value="Entrar">
                 </form>

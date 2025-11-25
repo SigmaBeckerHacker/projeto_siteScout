@@ -1,36 +1,37 @@
-<?php 
-    session_start();
+<?php
 
-   
-    $usuarioValido = 'admin@exemplo.com';
-    $senhaValida = '1234';
+session_start();
 
-  
-    if($_SERVER['REQUEST_METHOD'] !== 'POST'){
-        header('Location: login.php');
-        exit;
-    }
+require_once __DIR__ . '/src/conexao-bd.php';
+require_once __DIR__ . '/src/Modelo/Usuario.php';
+require_once __DIR__ . '/src/Repositorio/UsuarioRepositorio.php';
 
-    $email = trim($_POST['email'] ?? '');
-    $senha = $_POST['senha'] ?? '';
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header('Location: login.php');
+    exit;
+}
 
-  
-   if($email === '' || $senha === ''){
-        header('Location: login.php?erro=campos');
-        exit;
-   }
+$email = trim($_POST['email'] ?? '');
+$registro = $_POST['registro'] ?? '';
 
-  
-   if($email === $usuarioValido && $senha === $senhaValida){
-        session_regenerate_id(true);
-        $_SESSION['usuario'] = $email;
-       
-        header('Location: escoteiro/listar-escoteiros.php');
-        exit;
-   }
+if ($email === '' || $registro === '') {
+    header('Location: login.php?erro=campos');
+    exit;
+}
+
+$repo = new UsuarioRepositorio($pdo);
+$usuario = $repo->buscarPorEmail($email);
 
 
-   header('Location: login.php?erro=credenciais');
-   exit;
+if ($repo->autenticar($email, $registro)) {
+    session_regenerate_id(true); 
+    
+    $funcao = $usuario->getFuncao();
+    $_SESSION['usuario'] = $email; 
+    $_SESSION['permissoes'] = $funcao === 'Administrador' ? ['usuarios.listar',  'distintivos.listar', 'requisicoes.listar', 'escoteiros.listar'] : ['escoteiros.listar', 'requisicoes.listar'];
+    header('Location: dashboard.php'); 
+    exit;
+}
 
-?>
+header('Location: login.php?erro=credenciais');
+exit;

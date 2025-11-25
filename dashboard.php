@@ -51,15 +51,15 @@ function pode(string $perm): bool
 
         <div class="botoes-container">
 
-            <?php if (pode('categorias.listar')): ?>
-                <a class="botao" href="distintivo/listar-categorias.php">Categorias</a>
+            <?php if (pode('usuarios.listar')): ?>
+                <a class="botao" href="usuario/listar-usuarios.php">Usuarios</a>
             <?php endif; ?>
 
             <?php if (pode('distintivos.listar')): ?>
                 <a class="botao" href="distintivos/listar-distintivos.php">Distintivos</a>
             <?php endif; ?>
 
-            <?php if (pode('usuarios.listar')): ?>
+            <?php if (pode('escoteiros.listar')): ?>
                 <a class="botao" href="escoteiro/listar-escoteiros.php">Escoteiros</a>
             <?php endif; ?>
 
