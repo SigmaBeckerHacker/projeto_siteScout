@@ -111,6 +111,53 @@ form input[type="number"]:focus {
     background-color: #007bbd;
 }
 
+/* Action row for form buttons */
+.action-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.action-row .botao-cadastrar {
+    flex: 1;
+    width: auto;
+}
+
+.action-row .botao-cadastrar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    padding: 0 16px;
+}
+
+.botao-cancelar,
+.botao-voltar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e62e2e;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    height: 44px;
+    min-width: 44px;
+    padding: 0 16px;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+}
+
+.botao-cancelar:hover {
+    background-color: #b80000;
+}
+
+.botao-cancelar:hover,
+.botao-voltar:hover {
+    background-color: #b80000;
+}
+
 
 @media (max-width: 480px) {
     .container-form {

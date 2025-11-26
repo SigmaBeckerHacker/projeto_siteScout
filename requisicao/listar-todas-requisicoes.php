@@ -6,23 +6,37 @@ if(!isset($_SESSION['usuario'])){
     exit;
 }
 
-$usuarioLogado = $_SESSION['usuario'];
+$usuarioLogadoEmail = $_SESSION['usuario'];
 
 require_once __DIR__ . '/../src/conexao-bd.php';
+require_once __DIR__ . '/../src/Repositorio/RequisicaoRepositorio.php';
 require_once __DIR__ . '/../src/Repositorio/UsuarioRepositorio.php';
+require_once __DIR__ . '/../src/Modelo/Requisicao.php';
 require_once __DIR__ . '/../src/Modelo/Usuario.php';
 
-$repo = new UsuarioRepositorio($pdo);
+$repoReq = new RequisicaoRepositorio($pdo);
+$repoUsuario = new UsuarioRepositorio($pdo);
 
-// Pagination and sorting
+$usuario = $repoUsuario->buscarPorEmail(trim($usuarioLogadoEmail));
+
+if (empty($_SESSION['permissoes']) || !in_array('todasrequisicoes.listar', $_SESSION['permissoes'])) {
+    header('Location: ../login.php');
+    exit;
+}
+
+if (!$usuario) {
+    header('Location: login.php');
+    exit;
+}
+
 $page = max(1, intval($_GET['page'] ?? 1));
 $perPage = max(1, min(100, intval($_GET['per_page'] ?? 10)));
-$sort = $_GET['sort'] ?? 'nome';
-$order = strtoupper($_GET['order'] ?? 'ASC') === 'DESC' ? 'DESC' : 'ASC';
+$sort = $_GET['sort'] ?? 'data_requisicao';
+$order = strtoupper($_GET['order'] ?? 'DESC') === 'ASC' ? 'ASC' : 'DESC';
 
-$total = $repo->contarTodos();
+$total = $repoReq->contarTodos();
 $offset = ($page - 1) * $perPage;
-$usuarios = $repo->buscarTodos($perPage, $offset, $sort, $order);
+$requisicoes = $repoReq->buscarTodos($perPage, $offset, $sort, $order);
 
 function buildQuery(array $overrides = []): string
 {
@@ -36,49 +50,40 @@ function buildQuery(array $overrides = []): string
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/listar-escoteiros.css">
-    <title>Usuario - Admin</title>
+    <title>Escoteiro - Admin</title>
 </head>
 
 <body>
 <main>
 
-   
+
 
     <section class="container-admin-banner">
         <img src="../img/logo-escoteiros.png" class="logo-admin" alt="logo-escoteiro">
-        <h1>Administração Usuarios</h1>
+        <h1>Requisições - Todas</h1>
     </section>
 
     <section class="container-table">
         <table>
             <thead>
                 <tr>
-                    <th><a href="<?= buildQuery(['sort' => 'registro', 'order' => ($sort === 'registro' && $order === 'ASC') ? 'DESC' : 'ASC', 'page' => 1]) ?>">Registro</a></th>
-                    <th><a href="<?= buildQuery(['sort' => 'nome', 'order' => ($sort === 'nome' && $order === 'ASC') ? 'DESC' : 'ASC', 'page' => 1]) ?>">Nome</a></th>
-                    <th><a href="<?= buildQuery(['sort' => 'funcao', 'order' => ($sort === 'funcao' && $order === 'ASC') ? 'DESC' : 'ASC', 'page' => 1]) ?>">Funcao</a></th>
-                    <th><a href="<?= buildQuery(['sort' => 'email', 'order' => ($sort === 'email' && $order === 'ASC') ? 'DESC' : 'ASC', 'page' => 1]) ?>">Email</a></th>
-                    <th colspan="2">Ação</th>
+                    <th><a href="<?= buildQuery(['sort' => 'distintivo', 'order' => ($sort === 'distintivo' && $order === 'ASC') ? 'DESC' : 'ASC', 'page' => 1]) ?>">Distintivo</a></th>
+                    <th><a href="<?= buildQuery(['sort' => 'data_requisicao', 'order' => ($sort === 'data_requisicao' && $order === 'ASC') ? 'DESC' : 'ASC', 'page' => 1]) ?>">Data Requisição</a></th>
+                    <th><a href="<?= buildQuery(['sort' => 'registroChefe', 'order' => ($sort === 'registroChefe' && $order === 'ASC') ? 'DESC' : 'ASC', 'page' => 1]) ?>">Chefe</a></th>
+                    <th>Ação</th>
                 </tr>
             </thead>
 
             <tbody>
-                <?php foreach($usuarios as $usuario): ?>
+                <?php foreach($requisicoes as $req): ?>
                     <tr>
-                        <td><?= htmlspecialchars($usuario->getRegistro()) ?></td>
-                        <td><?= htmlspecialchars($usuario->getNome()) ?></td>
-                        <td><?= htmlspecialchars($usuario->getFuncao()) ?></td>
-                        <td><?= htmlspecialchars($usuario->getEmail()) ?></td>
-                        <td>
-                            <a class="botao-editar"
-                               href="form.php?registro=<?= urlencode($usuario->getRegistro()) ?>">
-                               Editar
-                            </a>
-                        </td>
+                        <td><?= htmlspecialchars($req->getDistintivo()) ?></td>
+                        <td><?= htmlspecialchars($req->getData()) ?></td>
+                        <td><?= htmlspecialchars($req->getChefe() ? $req->getChefe()->getNome() : '-') ?></td>
 
                         <td>
-                            <form method="POST" action="excluir-usuario.php">
-                                <input type="hidden" name="registro"
-                                       value="<?= htmlspecialchars($usuario->getRegistro()) ?>">
+                            <form method="POST" action="excluir-requisicao.php">
+                                <input type="hidden" name="id" value="<?= htmlspecialchars($req->getId()) ?>">
                                 <input type="submit" value="Excluir" class="botao-excluir">
                             </form>
                         </td>
@@ -103,12 +108,9 @@ function buildQuery(array $overrides = []): string
                 <a href="<?= buildQuery(['page' => $page + 1]) ?>">Próxima &raquo;</a>
             <?php endif; ?>
         </div>
-
         <div class="action-list" style="margin-top:20px;">
-            <a href="form.php" class="botao-cadastrar">Cadastrar usuario</a>
             <a href="../dashboard.php" class="botao-voltar">Voltar</a>
         </div>
-
     </section>
 </main>
 </body>

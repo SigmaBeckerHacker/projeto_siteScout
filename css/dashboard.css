@@ -89,3 +89,14 @@ body {
     background: #2b9cd6;
     transform: translateY(-3px);
 }
+
+.botao-sair {
+    background-color: #e62e2e;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}

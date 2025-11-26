@@ -39,8 +39,8 @@ if ($repo->autenticar($email, $registro)) {
 
     $_SESSION['permissoes'] =
         $funcao === 'Administrador'
-            ? ['usuarios.listar', 'distintivos.listar', 'requisicoes.listar', 'escoteiros.listar']
-            : ['escoteiros.listar', 'requisicoes.listar'];
+            ? ['usuarios.listar', 'distintivos.listar', 'todasrequisicoes.listar', 'escoteiros.listar', 'requisicoes.listar']           
+            : ['requisicoes.listar'];
 
     header('Location: dashboard.php');
     exit;

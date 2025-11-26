@@ -34,13 +34,33 @@ class DistintivoRepositorio {
         return $dados ? $this->formarObjeto($dados) : null;
     }
 
-    public function buscarTodos(): array
+    public function contarTodos(): int
     {
+        $sql = "SELECT COUNT(*) as total FROM tbDistintivo";
+        $row = $this->pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
+        return (int)$row['total'];
+    }
+
+    public function buscarTodos(int $limit = 10, int $offset = 0, string $sort = 'nome_distintivo', string $order = 'ASC'): array
+    {
+        $allowedSort = ['id_distintivo', 'nome_distintivo', 'quantidade', 'categoria_distintivo'];
+        if (!in_array($sort, $allowedSort, true)) {
+            $sort = 'nome_distintivo';
+        }
+
+        $order = strtoupper($order) === 'DESC' ? 'DESC' : 'ASC';
+
         $sql = "SELECT id_distintivo, nome_distintivo, quantidade, categoria_distintivo, imagem 
                 FROM tbDistintivo 
-                ORDER BY nome_distintivo";
+                ORDER BY $sort $order 
+                LIMIT ? OFFSET ?";
 
-        $rs = $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(1, $limit, PDO::PARAM_INT);
+        $stmt->bindValue(2, $offset, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return array_map(
             fn($linha) => $this->formarObjeto($linha),

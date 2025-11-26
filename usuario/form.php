@@ -101,7 +101,10 @@ $actionForm    = "salvar-usuario.php";
                        placeholder="Digite o registro do usuario" 
                        <?= $modoEdicao ? "readonly" : "" ?>>
 
-                <input class="botao-cadastrar" type="submit" value="<?= $textoBotao ?>">
+                <div class="action-row">
+                    <input class="botao-cadastrar" type="submit" value="<?= $textoBotao ?>">
+                    <button type="button" class="botao-cancelar" onclick="window.location.href='listar-usuarios.php'">Cancelar</button>
+                </div>
 
             </form>
         </section>

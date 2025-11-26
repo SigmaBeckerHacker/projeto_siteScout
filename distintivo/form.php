@@ -109,7 +109,10 @@ $actionForm    = "salvar-distintivo.php";
                      width="120" alt="Imagem do distintivo">
             <?php endif; ?>
 
-            <input class="botao-cadastrar" type="submit" value="<?= $textoBotao ?>">
+            <div class="action-row">
+                <input class="botao-cadastrar" type="submit" value="<?= $textoBotao ?>">
+                <button type="button" class="botao-cancelar" onclick="window.location.href='listar-distintivos.php'">Cancelar</button>
+            </div>
 
         </form>
 

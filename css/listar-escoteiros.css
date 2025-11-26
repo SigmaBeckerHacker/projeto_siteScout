@@ -103,13 +103,38 @@ td {
     background-color: #b80000;
 }
 
+/* Cancel and Voltar buttons styling for lists/forms */
+.botao-cancelar,
+.botao-voltar {
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    background-color: #e62e2e;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    height: 44px;
+    min-width: 44px;
+    padding: 0 16px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+.botao-cancelar:hover,
+.botao-voltar:hover {
+    background-color: #b80000;
+}
+
 
 .botao-cadastrar {
-    display: inline-block;
-    margin-top: 25px;
-    padding: 12px 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0;
+    height: 44px;
+    padding: 0 24px;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     background-color: #009e3e;
     color: white;
     font-weight: 600;
@@ -120,6 +145,13 @@ td {
 
 .botao-cadastrar:hover {
     background-color: #007c2f;
+}
+
+.action-list {
+    display:flex;
+    gap:10px;
+    align-items:center;
+    justify-content:center;
 }
 
 

@@ -104,7 +104,10 @@ $actionForm    = "salvar-escoteiro.php";
                        placeholder="Digite o registro do jovem" 
                        <?= $modoEdicao ? "readonly" : "" ?>>
 
-                <input class="botao-cadastrar" type="submit" value="<?= $textoBotao ?>">
+                <div class="action-row">
+                    <input class="botao-cadastrar" type="submit" value="<?= $textoBotao ?>">
+                    <button type="button" class="botao-cancelar" onclick="window.location.href='listar-escoteiros.php'">Cancelar</button>
+                </div>
 
             </form>
         </section>

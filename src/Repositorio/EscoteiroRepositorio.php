@@ -29,14 +29,33 @@ class EscoteiroRepositorio {
         return $dados ? $this->formarObjeto($dados) : null;
     }
 
-    public function buscarTodos(): array
+    public function contarTodos(): int
     {
-        $sql = "SELECT nome, registro, ramo FROM tbEscoteiro ORDER BY nome";
-        $rs = $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+        $sql = "SELECT COUNT(*) as total FROM tbEscoteiro";
+        $row = $this->pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
+        return (int)$row['total'];
+    }
 
-    return array_map(
-        fn($linha) => $this->formarObjeto($linha),
-        $rs);
+    public function buscarTodos(int $limit = 10, int $offset = 0, string $sort = 'nome', string $order = 'ASC'): array
+    {
+        $allowedSort = ['nome', 'registro', 'ramo'];
+        if (!in_array($sort, $allowedSort, true)) {
+            $sort = 'nome';
+        }
+
+        $order = strtoupper($order) === 'DESC' ? 'DESC' : 'ASC';
+
+        $sql = "SELECT nome, registro, ramo FROM tbEscoteiro ORDER BY $sort $order LIMIT ? OFFSET ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(1, $limit, PDO::PARAM_INT);
+        $stmt->bindValue(2, $offset, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $rs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return array_map(
+            fn($linha) => $this->formarObjeto($linha),
+            $rs);
     }
 
 

@@ -1,18 +1,20 @@
 <?php
 
+require_once __DIR__ . '/Usuario.php';
+
 class Requisicao
 {
     private int $id;
-    private String $distintivo;
-    private string $data;      
-    private string $status;    
+    private string $distintivo;
+    private string $data;        
+    private Usuario $chefe;
 
-    public function __construct(int $id, string $distintivo, string $data, string $status)
+    public function __construct(int $id, string $distintivo, string $data, Usuario $chefe)
     {
         $this->id = $id;
         $this->distintivo = $distintivo;
         $this->data = $data;
-        $this->status = $status;
+        $this->chefe = $chefe;
     }
 
     public function getId(): int
@@ -30,11 +32,6 @@ class Requisicao
         return $this->data;
     }
 
-    public function getStatus(): string
-    {
-        return $this->status;
-    }
-
     public function setDistintivo(string $distintivo): void
     {
         $this->distintivo = $distintivo;
@@ -44,10 +41,15 @@ class Requisicao
     {
         $this->data = $data;
     }
-
-    public function setStatus(string $status): void
+    
+    public function getChefe(): Usuario
     {
-        $this->status = $status;
+        return $this->chefe;
+    }
+
+    public function setChefe(Usuario $chefe): void
+    {
+        $this->chefe = $chefe;
     }
 }
 

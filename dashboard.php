@@ -37,14 +37,26 @@ function pode(string $perm): bool
     </div>
 
     <!-- TÍTULO -->
-    <h1 class="titulo">ADMINISTRADOR</h1>
+      <?php if (pode('usuarios.listar')): ?>
+                <h1 class="titulo">ADMINISTRADOR</h1>
+            <?php endif; ?>
+    <?php if (!pode('usuarios.listar')): ?>
+                <h1 class="titulo">USUÁRIO</h1>
+            <?php endif; ?>
+    
 
+    </section>
     <!-- CARD CENTRAL -->
     <div class="card">
 
         <div class="linha-superior">
             <span class="bemvindo">Bem vindo, <?= htmlspecialchars($usuarioLogado) ?></span>
+            
             <span class="icone">👤</span>
+
+            <form action="logout.php" method="POST">
+                <button type="submit" class="botao-sair">Sair</button>
+            </form>
         </div>
 
         <hr>
@@ -62,7 +74,14 @@ function pode(string $perm): bool
             <?php if (pode('escoteiros.listar')): ?>
                 <a class="botao" href="escoteiro/listar-escoteiros.php">Escoteiros</a>
             <?php endif; ?>
+            
+            <?php if (pode('todasrequisicoes.listar')): ?>
+                <a class="botao" href="requisicao/listar-todas-requisicoes.php">Todas Requisições</a>
+            <?php endif; ?>
 
+            <?php if (pode('requisicoes.listar')): ?>
+                <a class="botao" href="requisicao/listar-minhas-requisicoes.php">Minhas Requisições</a>
+            <?php endif; ?>
         </div>
 
     </div>
