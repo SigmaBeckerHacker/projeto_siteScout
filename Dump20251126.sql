@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `db_escoteiro` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `db_escoteiro`;
 -- MySQL dump 10.13  Distrib 8.0.42, for Win64 (x86_64)
 --
--- Host: localhost    Database: db_escoteiro
+-- Host: 127.0.0.1    Database: db_escoteiro
 -- ------------------------------------------------------
--- Server version	8.0.42
+-- Server version	8.4.5
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -40,7 +38,7 @@ CREATE TABLE `tbdistintivo` (
 
 LOCK TABLES `tbdistintivo` WRITE;
 /*!40000 ALTER TABLE `tbdistintivo` DISABLE KEYS */;
-INSERT INTO `tbdistintivo` VALUES (1,'escoteiro da patria',4,'interesse','');
+INSERT INTO `tbdistintivo` VALUES (1,'Jovem',2,'progressao','1764124927-Captura de tela 2025-11-24 194548.png');
 /*!40000 ALTER TABLE `tbdistintivo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -52,9 +50,9 @@ DROP TABLE IF EXISTS `tbescoteiro`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbescoteiro` (
-  `nome` varchar(255) DEFAULT NULL,
+  `nome` varchar(100) NOT NULL,
   `registro` decimal(8,0) NOT NULL,
-  `ramo` varchar(255) DEFAULT NULL,
+  `ramo` varchar(50) NOT NULL,
   PRIMARY KEY (`registro`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -65,7 +63,7 @@ CREATE TABLE `tbescoteiro` (
 
 LOCK TABLES `tbescoteiro` WRITE;
 /*!40000 ALTER TABLE `tbescoteiro` DISABLE KEYS */;
-INSERT INTO `tbescoteiro` VALUES ('joao',13313,'escoteiro'),('joaquim',123414,'escoteiro');
+INSERT INTO `tbescoteiro` VALUES ('Joao',1549012,'senior');
 /*!40000 ALTER TABLE `tbescoteiro` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -77,12 +75,15 @@ DROP TABLE IF EXISTS `tbrequisicao`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbrequisicao` (
-  `id_requisicao` int NOT NULL,
-  `distintivo` varchar(50) DEFAULT NULL,
-  `data_requisicao` date DEFAULT NULL,
-  `status_requisicao` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id_requisicao`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id_requisicao` int NOT NULL AUTO_INCREMENT,
+  `distintivo` varchar(255) NOT NULL,
+  `data_requisicao` date NOT NULL,
+  `registroChefe` decimal(8,0) DEFAULT NULL,
+  PRIMARY KEY (`id_requisicao`),
+  KEY `fk_tbRequisicao_distintivo` (`distintivo`),
+  KEY `fk_tbRequisicao_registroChefe` (`registroChefe`),
+  CONSTRAINT `fk_tbRequisicao_registroChefe` FOREIGN KEY (`registroChefe`) REFERENCES `tbusuario` (`registro`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,6 +92,7 @@ CREATE TABLE `tbrequisicao` (
 
 LOCK TABLES `tbrequisicao` WRITE;
 /*!40000 ALTER TABLE `tbrequisicao` DISABLE KEYS */;
+INSERT INTO `tbrequisicao` VALUES (1,'Distintivo tale','2025-11-26',12345678);
 /*!40000 ALTER TABLE `tbrequisicao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -102,11 +104,10 @@ DROP TABLE IF EXISTS `tbusuario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tbusuario` (
-  `nome` varchar(255) NOT NULL,
+  `nome` varchar(100) NOT NULL,
   `registro` decimal(8,0) NOT NULL,
-  `senha` varchar(255) NOT NULL,
-  `funcao` varchar(255) DEFAULT NULL,
-  `email` varchar(255) NOT NULL,
+  `funcao` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
   PRIMARY KEY (`registro`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -117,6 +118,7 @@ CREATE TABLE `tbusuario` (
 
 LOCK TABLES `tbusuario` WRITE;
 /*!40000 ALTER TABLE `tbusuario` DISABLE KEYS */;
+INSERT INTO `tbusuario` VALUES ('Administrador',12345678,'Administrador','admin@exemplo.com'),('Com',87654321,'Usuário Comum','comum@exemplo.com');
 /*!40000 ALTER TABLE `tbusuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -129,4 +131,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-11-23 20:29:18
+-- Dump completed on 2025-11-26  0:20:20
