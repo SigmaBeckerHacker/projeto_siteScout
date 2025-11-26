@@ -1,32 +1,10 @@
- 
-
- 
-
-
-DROP TABLE IF EXISTS `tbdistintivo`;
- 
-CREATE TABLE `tbdistintivo` (
-  `id_distintivo` int NOT NULL AUTO_INCREMENT,
-  `nome_distintivo` varchar(50) DEFAULT NULL,
-  `quantidade` int DEFAULT NULL,
-  `categoria_distintivo` varchar(50) DEFAULT NULL,
-  `imagem` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id_distintivo`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
- 
-
- 
-
-LOCK TABLES `tbdistintivo` WRITE;
- 
-INSERT INTO `tbdistintivo` VALUES (1,'Jovem',2,'progressao','1764124927-Captura de tela 2025-11-24 194548.png');
- 
-UNLOCK TABLES;
--- MySQL dump 10.13  Distrib 8.0.42, for Win64 (x86_64)
+CREATE DATABASE  IF NOT EXISTS `db_escoteiro` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `db_escoteiro`;
+-- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: db_escoteiro
 -- ------------------------------------------------------
--- Server version	8.4.5
+-- Server version	8.4.4
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -53,7 +31,7 @@ CREATE TABLE `tbdistintivo` (
   `categoria_distintivo` varchar(50) DEFAULT NULL,
   `imagem` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_distintivo`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -62,7 +40,7 @@ CREATE TABLE `tbdistintivo` (
 
 LOCK TABLES `tbdistintivo` WRITE;
 /*!40000 ALTER TABLE `tbdistintivo` DISABLE KEYS */;
-INSERT INTO `tbdistintivo` VALUES (1,'Jovem',2,'progressao','1764124927-Captura de tela 2025-11-24 194548.png');
+INSERT INTO `tbdistintivo` VALUES (1,'Exemplo1',1,'progressao','1764165440-Captura de tela 2025-01-17 134948.png'),(2,'Exemplo2',2,'especialidades','1764165448-Captura de tela 2025-01-17 134948.png');
 /*!40000 ALTER TABLE `tbdistintivo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -87,7 +65,7 @@ CREATE TABLE `tbescoteiro` (
 
 LOCK TABLES `tbescoteiro` WRITE;
 /*!40000 ALTER TABLE `tbescoteiro` DISABLE KEYS */;
-INSERT INTO `tbescoteiro` VALUES ('Joao',1549012,'senior');
+INSERT INTO `tbescoteiro` VALUES ('Joao',11111111,'senior'),('Joaquim',22222222,'escoteiro');
 /*!40000 ALTER TABLE `tbescoteiro` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -104,10 +82,9 @@ CREATE TABLE `tbrequisicao` (
   `data_requisicao` date NOT NULL,
   `registroChefe` decimal(8,0) DEFAULT NULL,
   PRIMARY KEY (`id_requisicao`),
-  KEY `fk_tbRequisicao_distintivo` (`distintivo`),
   KEY `fk_tbRequisicao_registroChefe` (`registroChefe`),
   CONSTRAINT `fk_tbRequisicao_registroChefe` FOREIGN KEY (`registroChefe`) REFERENCES `tbusuario` (`registro`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -116,7 +93,7 @@ CREATE TABLE `tbrequisicao` (
 
 LOCK TABLES `tbrequisicao` WRITE;
 /*!40000 ALTER TABLE `tbrequisicao` DISABLE KEYS */;
-INSERT INTO `tbrequisicao` VALUES (1,'Distintivo tale','2025-11-26',12345678);
+INSERT INTO `tbrequisicao` VALUES (1,'Escoteiro da patria','2025-11-26',12345678),(2,'Distintivo 2','2025-11-26',12345678),(3,'Escoteiro da patria','2025-11-26',87654321);
 /*!40000 ALTER TABLE `tbrequisicao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -142,10 +119,9 @@ CREATE TABLE `tbusuario` (
 
 LOCK TABLES `tbusuario` WRITE;
 /*!40000 ALTER TABLE `tbusuario` DISABLE KEYS */;
-INSERT INTO `tbusuario` VALUES ('Administrador',12345678,'Administrador','admin@exemplo.com'),('Com',87654321,'Usuário Comum','comum@exemplo.com');
+INSERT INTO `tbusuario` VALUES ('ADM',12345678,'Administrador','admin@exemplo.com'),('Comum',87654321,'Usuário Comum','comum@exemplo.com');
 /*!40000 ALTER TABLE `tbusuario` ENABLE KEYS */;
 UNLOCK TABLES;
-
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -156,74 +132,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-11-26  0:20:20
-
- 
-
-DROP TABLE IF EXISTS `tbescoteiro`;
- 
-CREATE TABLE `tbescoteiro` (
-  `nome` varchar(100) NOT NULL,
-  `registro` decimal(8,0) NOT NULL,
-  `ramo` varchar(50) NOT NULL,
-  PRIMARY KEY (`registro`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
- 
-
- 
-
-LOCK TABLES `tbescoteiro` WRITE;
- 
-INSERT INTO `tbescoteiro` VALUES ('Joao',1549012,'senior');
- 
-UNLOCK TABLES;
-
- 
-
-DROP TABLE IF EXISTS `tbrequisicao`;
- 
-CREATE TABLE `tbrequisicao` (
-  `id_requisicao` int NOT NULL AUTO_INCREMENT,
-  `distintivo` varchar(255) NOT NULL,
-  `data_requisicao` date NOT NULL,
-  `registroChefe` decimal(8,0) DEFAULT NULL,
-  PRIMARY KEY (`id_requisicao`),
-  KEY `fk_tbRequisicao_distintivo` (`distintivo`),
-  KEY `fk_tbRequisicao_registroChefe` (`registroChefe`),
-  CONSTRAINT `fk_tbRequisicao_registroChefe` FOREIGN KEY (`registroChefe`) REFERENCES `tbusuario` (`registro`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
- 
-
- 
-
-LOCK TABLES `tbrequisicao` WRITE;
- 
-INSERT INTO `tbrequisicao` VALUES (1,'Distintivo tale','2025-11-26',12345678);
- 
-UNLOCK TABLES;
-
- 
-
-DROP TABLE IF EXISTS `tbusuario`;
- 
-CREATE TABLE `tbusuario` (
-  `nome` varchar(100) NOT NULL,
-  `registro` decimal(8,0) NOT NULL,
-  `funcao` varchar(50) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  PRIMARY KEY (`registro`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
- 
-
- 
-
-LOCK TABLES `tbusuario` WRITE;
- 
-INSERT INTO `tbusuario` VALUES ('Administrador',12345678,'Administrador','admin@exemplo.com'),('Com',87654321,'Usuário Comum','comum@exemplo.com');
- 
-UNLOCK TABLES;
- 
-
- 
-
- 
+-- Dump completed on 2025-11-26 11:00:25
