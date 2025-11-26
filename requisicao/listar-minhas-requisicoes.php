@@ -19,9 +19,9 @@ $repoUsuario = new UsuarioRepositorio($pdo);
 
 $usuario = $repoUsuario->buscarPorEmail(trim($usuarioLogadoEmail));
 
-// Pagination & sorting params
+ 
 if (!$usuario) {
-    // Usuário não encontrado: redireciona para login para evitar acesso indevido
+    
     header('Location: login.php');
     exit;
 }

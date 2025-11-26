@@ -25,18 +25,18 @@ function pode(string $perm): bool
 
 <body>
 
-    <!-- BARRAS LATERAIS COLORIDAS -->
+    
     <div class="side left red"></div>
     <div class="side left purple"></div>
     <div class="side right purple"></div>
     <div class="side right yellow"></div>
 
-    <!-- LOGO CENTRAL -->
+    
     <div class="logo-container">
         <img src="img/logo-escoteiros.png" alt="Logo do Grupo" class="logo">
     </div>
 
-    <!-- TÍTULO -->
+    
       <?php if (pode('usuarios.listar')): ?>
                 <h1 class="titulo">ADMINISTRADOR</h1>
             <?php endif; ?>
@@ -46,7 +46,7 @@ function pode(string $perm): bool
     
 
     </section>
-    <!-- CARD CENTRAL -->
+    
     <div class="card">
 
         <div class="linha-superior">

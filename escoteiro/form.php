@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// SE TIVER LOGIN NO SISTEMA, DESCOMENTE
+ 
 
 if (!isset($_SESSION['usuario'])) {
     header('Location: ../login.php');

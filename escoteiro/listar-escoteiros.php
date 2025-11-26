@@ -14,7 +14,7 @@ require_once __DIR__ . '/../src/Modelo/Escoteiro.php';
 
 $repo = new EscoteiroRepositorio($pdo);
 
-// Pagination and sorting
+ 
 $page = max(1, intval($_GET['page'] ?? 1));
 $perPage = max(1, min(100, intval($_GET['per_page'] ?? 10)));
 $sort = $_GET['sort'] ?? 'nome';

@@ -111,7 +111,7 @@ form input[type="number"]:focus {
     background-color: #007bbd;
 }
 
-/* Action row for form buttons */
+ 
 .action-row {
     display: flex;
     gap: 10px;

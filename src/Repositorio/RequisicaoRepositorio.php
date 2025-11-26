@@ -13,7 +13,7 @@ class RequisicaoRepositorio {
 
     private function formarObjeto(array $linha): Requisicao
     {
-        // Converte o registro do chefe em um objeto Usuario
+        
         $usuarioRepo = new UsuarioRepositorio($this->pdo);
         $chefe = $usuarioRepo->buscarPorRegistro((int)$linha['registroChefe']);
 

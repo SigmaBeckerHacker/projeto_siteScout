@@ -35,7 +35,6 @@ if (!$usuario) {
 
 $canDeleteAll = !empty($_SESSION['permissoes']) && in_array('todasrequisicoes.listar', $_SESSION['permissoes']);
 
-// If user is not admin, only allow deletion of own requisitions
 if (!$canDeleteAll) {
     $req = $repo->buscarPorId($id);
     if (!$req || $req->getChefe()->getRegistro() !== $usuario->getRegistro()) {
@@ -46,7 +45,7 @@ if (!$canDeleteAll) {
 
 $repo->excluir($id);
 
-// Redirect based on permission
+ 
 if ($canDeleteAll) {
     header('Location: listar-todas-requisicoes.php?delete=1');
 } else {

@@ -1,4 +1,4 @@
-/* ----- FUNDO GERAL ----- */
+ 
 body {
     margin: 0;
     padding: 0;
@@ -7,7 +7,7 @@ body {
     text-align: center;
 }
 
-/* ----- BARRAS LATERAIS ----- */
+ 
 .side {
     position: fixed;
     top: 0;
@@ -21,7 +21,7 @@ body {
 .right.purple { right: 60px; background: #9A2CA4; }
 .right.yellow { right: 0; background: #F4CA00; }
 
-/* ----- LOGO ----- */
+ 
 .logo-container {
     margin-top: 40px;
 }
@@ -30,7 +30,7 @@ body {
     width: 180px;
 }
 
-/* ----- TÍTULO ----- */
+ 
 .titulo {
     margin-top: 10px;
     font-size: 30px;
@@ -38,7 +38,7 @@ body {
     color: #000;
 }
 
-/* ----- CARD ----- */
+ 
 .card {
     background: #d9effb;
     width: 65%;
@@ -49,7 +49,7 @@ body {
     box-shadow: 0 4px 10px rgba(0,0,0,0.25);
 }
 
-/* Linha superior do card */
+ 
 .linha-superior {
     display: flex;
     justify-content: space-between;
@@ -65,7 +65,7 @@ body {
     font-size: 22px;
 }
 
-/* ----- BOTÕES ----- */
+ 
 .botoes-container {
     margin-top: 25px;
     display: flex;
